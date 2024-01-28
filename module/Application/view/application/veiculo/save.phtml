@@ -1,0 +1,53 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item"><a href="/veiculo">Veículos</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><?php echo $this->title; ?></li>
+    </ol>
+</nav>
+<?php if ($this->alert) { ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $this->alert; ?>
+    </div>
+<?php } ?>
+<section>
+    <h1><?php echo $this->title; ?> Veículo <?php echo isset($this->veiculo) ? '#' . $this->veiculo->getIdveiculo() : ''; ?></h1>
+    <form action="/veiculo/save<?php echo isset($this->veiculo) ? '/id/' . $this->veiculo->getIdveiculo() : ''; ?>" method="POST">
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="placa">Placa *</label>
+                <input type="text" name="placa" class="form-control is-valid" id="placa" value="<?php echo isset($this->veiculo) ? $this->veiculo->getPlaca() : ''; ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="renavam">Renavam</label>
+                <input type="number" name="renavam" class="form-control is-valid" id="renavam" value="<?php echo isset($this->veiculo) ? $this->veiculo->getRenavam() : ''; ?>">
+            </div>
+            <div class="col-md-4">
+                <label for="modelo">Modelo *</label>
+                <input type="text" name="modelo" class="form-control is-invalid" id="modelo" value="<?php echo isset($this->veiculo) ? $this->veiculo->getModelo() : ''; ?>" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4 mb-3">
+                <label for="marca">Marca *</label>
+                <input type="text" name="marca" class="form-control is-invalid" id="marca" value="<?php echo isset($this->veiculo) ? $this->veiculo->getMarca() : ''; ?>" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="ano">Ano *</label>
+                <input type="number" name="ano" class="form-control is-invalid" id="ano" value="<?php echo isset($this->veiculo) ? $this->veiculo->getAno() : ''; ?>" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="cor">Cor *</label>
+                <input type="text" name="cor" class="form-control is-invalid" id="cor" value="<?php echo isset($this->veiculo) ? $this->veiculo->getCor() : ''; ?>" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <p><small>* Campos obrigatórios</small></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+    </form>
+</section>

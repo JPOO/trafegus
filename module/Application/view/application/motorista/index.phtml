@@ -1,0 +1,61 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Motoristas</li>
+    </ol>
+</nav>
+<?php if ($this->alert) { ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $this->alert; ?>
+    </div>
+<?php } else { ?>
+    <section>
+        <h1>Lista de Motoristas</h1>
+        <a class="btn btn-success" href="/motorista/save"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Adicionar</a>
+        <?php if ($this->motoristas) { ?>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">RG</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Veículo</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($this->motoristas as $motorista) { ?>
+                        <tr>
+                            <th scope="row"><?php echo $motorista->getIdmotorista(); ?></th>
+                            <td><?php echo $motorista->getNome(); ?></td>
+                            <td><?php echo $motorista->getRg(); ?></td>
+                            <td><?php echo $motorista->getCpf(); ?></td>
+                            <td><?php echo $motorista->getTelefone(); ?></td>
+                            <td><?php echo $motorista->getVeiculo()->getIdveiculo() . ' - ' .$motorista->getVeiculo()->getPlaca(); ?></td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/motorista/save/id/<?php echo $motorista->getIdmotorista(); ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    Editar</a>
+                                <a class="btn btn-sm btn-danger" data-href="/motorista/remove/id/<?php echo $motorista->getIdmotorista(); ?>" data-toggle="modal" data-target="#remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    Remover</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } else { ?>
+            <div class="alert alert-info" role="alert">
+                Ainda não existem motoristas cadastrados!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+    </section>
+<?php }
+    echo $this->partial('layout/modal-remove');
+?>

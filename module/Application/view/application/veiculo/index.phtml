@@ -1,0 +1,63 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Veículos</li>
+    </ol>
+</nav>
+<?php if ($this->alert) { ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $this->alert; ?>
+    </div>
+<?php } else { ?>
+    <section>
+        <h1>Lista de Veículos</h1>
+        <a class="btn btn-success" href="/veiculo/save"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Adicionar</a>
+        <?php if ($this->veiculos) { ?>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Renavam</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Cor</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($this->veiculos as $veiculo) { ?>
+                            <tr>
+                                <th scope="row"><?php echo $veiculo->getIdveiculo(); ?></th>
+                                <td><?php echo $veiculo->getPlaca(); ?></td>
+                                <td><?php echo $veiculo->getRenavam(); ?></td>
+                                <td><?php echo $veiculo->getModelo(); ?></td>
+                                <td><?php echo $veiculo->getMarca(); ?></td>
+                                <td><?php echo $veiculo->getAno(); ?></td>
+                                <td><?php echo $veiculo->getCor(); ?></td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="/veiculo/save/id/<?php echo $veiculo->getIdveiculo(); ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                Editar</a>
+                                    <a class="btn btn-sm btn-danger" data-href="/veiculo/remove/id/<?php echo $veiculo->getIdveiculo(); ?>" data-toggle="modal" data-target="#remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Remover</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } else { ?>
+            <div class="alert alert-info" role="alert">
+                Ainda não existem veículos cadastrados!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+    </section>
+<?php }
+    echo $this->partial('layout/modal-remove');
+?>

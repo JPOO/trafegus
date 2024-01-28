@@ -1,0 +1,49 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Início</a></li>
+        <li class="breadcrumb-item"><a href="/motorista">Motoristas</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><?php echo $this->title; ?></li>
+    </ol>
+</nav>
+<section>
+    <h1><?php echo $this->title; ?> Motorista <?php echo isset($this->motorista) ? '#' . $this->motorista->getIdmotorista() : ''; ?></h1>
+    <form action="/motorista/save<?php echo isset($this->motorista) ? '/id/' . $this->motorista->getIdmotorista() : ''; ?>" method="POST">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="nome">Nome *</label>
+                <input type="text" name="nome" class="form-control is-valid" id="nome" value="<?php echo isset($this->motorista) ? $this->motorista->getNome() : ''; ?>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="rg">RG *</label>
+                <input type="text" name="rg" class="form-control is-valid" id="rg" value="<?php echo isset($this->motorista) ? $this->motorista->getRg() : ''; ?>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="cpf">CPF *</label>
+                <input type="text" name="cpf" class="form-control is-invalid" id="cpf" value="<?php echo isset($this->motorista) ? $this->motorista->getCpf() : ''; ?>" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4 mb-3">
+                <label for="telefone">Telefone</label>
+                <input type="text" name="telefone" class="form-control is-invalid" id="telefone" value="<?php echo isset($this->motorista) ? $this->motorista->getTelefone() : ''; ?>">
+            </div>
+            <div class="col-md-8 mb-3">
+                <label for="veiculo">Veículo *</label>
+                <select name="veiculo" class="form-control mr-sm-2" id="veiculo" required>
+                    <option value="">Selecionar veículo</option>
+                    <?php foreach ($this->veiculos as $veiculo) { ?>
+                        <option value="<?php echo $veiculo->getIdveiculo(); ?>" <?php echo isset($this->motorista) && $this->motorista->getVeiculo()->getIdveiculo() == $veiculo->getIdveiculo() ? 'selected' : ''; ?>><?php echo $veiculo->getIdveiculo() . ' - ' . $veiculo->getPlaca(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <p><small>* Campos obrigatórios</small></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+    </form>
+</section>
